@@ -25,6 +25,7 @@
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This is the REST CRUD API backend for the [online-jewelry repository](https://github.com/MilosNj/online-jewelry)
 
 ## Installation
 
