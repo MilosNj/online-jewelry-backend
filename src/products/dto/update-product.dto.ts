@@ -11,5 +11,5 @@ export class UpdateProductDto extends PartialType(CreateProductDto) {
   price: number;
   countInStock: number;
   rating: number;
-  numReviews: number;
+  numOfReviews: number;
 }
