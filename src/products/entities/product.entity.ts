@@ -5,7 +5,7 @@ import { User } from 'src/users/entities/user.entity';
 @Entity()
 export class Product {
   @PrimaryGeneratedColumn()
-  _id: string;
+  _id: number;
 
   @Column()
   name: string;
@@ -34,6 +34,6 @@ export class Product {
   @Column()
   numOfReviews: number;
 
-  @ManyToOne((_type) => User, (user) => user.products, { eager: false })
-  user: User;
+  // @ManyToOne((_type) => User, (user) => user.products, { eager: false })
+  // user: User;
 }
