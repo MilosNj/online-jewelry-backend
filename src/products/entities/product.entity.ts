@@ -22,13 +22,13 @@ export class Product {
   @Column()
   category: string;
 
-  @Column()
+  @Column({ type: 'double precision', scale: 2 })
   price: number;
 
   @Column()
   countInStock: number;
 
-  @Column()
+  @Column({ type: 'double precision', scale: 2 })
   rating: number;
 
   @Column()
