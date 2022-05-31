@@ -21,4 +21,10 @@ export class CreateProductDto {
 
   @IsNotEmpty()
   countInStock: number;
+
+  @IsNotEmpty()
+  rating: number;
+
+  @IsNotEmpty()
+  numOfReviews: number;
 }

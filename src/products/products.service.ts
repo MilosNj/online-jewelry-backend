@@ -14,8 +14,17 @@ export class ProductsService {
   ) {}
 
   async create(createProductDto: CreateProductDto): Promise<Product> {
-    const { name, image, description, brand, category, price, countInStock } =
-      createProductDto;
+    const {
+      name,
+      image,
+      description,
+      brand,
+      category,
+      price,
+      countInStock,
+      rating,
+      numOfReviews,
+    } = createProductDto;
 
     const product: Product = this.repository.create({
       name,
@@ -25,8 +34,8 @@ export class ProductsService {
       category,
       price,
       countInStock,
-      rating: 0.0,
-      numOfReviews: 0,
+      rating,
+      numOfReviews,
     });
 
     await this.repository.save(product);

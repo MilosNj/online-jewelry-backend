@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { ProductsModule } from './products/products.module';
 import { UsersModule } from './users/users.module';
+import { OrderModule } from './order/order.module';
+import { ReviewModule } from './review/review.module';
 import envConfig from '../config/env';
 
 @Module({
@@ -27,6 +29,8 @@ import envConfig from '../config/env';
       }),
     }),
     ProductsModule,
+    OrderModule,
+    ReviewModule,
     // UsersModule,
   ],
 })

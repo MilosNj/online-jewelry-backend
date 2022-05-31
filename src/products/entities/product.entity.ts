@@ -22,18 +22,18 @@ export class Product {
   @Column()
   category: string;
 
-  @Column({ type: 'double precision', scale: 2 })
+  @Column({ type: 'double precision', scale: 2, default: 0 })
   price: number;
 
-  @Column()
+  @Column({ default: 0 })
   countInStock: number;
 
-  @Column({ type: 'double precision', scale: 2 })
+  @Column({ type: 'double precision', scale: 2, default: 0 })
   rating: number;
 
-  @Column()
+  @Column({ default: 0 })
   numOfReviews: number;
 
-  // @ManyToOne((_type) => User, (user) => user.products, { eager: false })
-  // user: User;
+  @ManyToOne((_type) => User, (user) => user.products, { eager: false })
+  user: User;
 }
