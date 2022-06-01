@@ -1,7 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
+
 import { OrderItemService } from './order-item.service';
 import { CreateOrderItemDto } from './dto/create-order-item.dto';
 import { UpdateOrderItemDto } from './dto/update-order-item.dto';
+import { FindAllFilterDto } from 'src/products/dto/find-all-filter.dto';
 
 @Controller('order-item')
 export class OrderItemController {
@@ -13,8 +23,8 @@ export class OrderItemController {
   }
 
   @Get()
-  findAll() {
-    return this.orderItemService.findAll();
+  findAll(filterDto: FindAllFilterDto) {
+    return this.orderItemService.findAll(filterDto);
   }
 
   @Get(':id')
@@ -23,7 +33,10 @@ export class OrderItemController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOrderItemDto: UpdateOrderItemDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateOrderItemDto: UpdateOrderItemDto,
+  ) {
     return this.orderItemService.update(+id, updateOrderItemDto);
   }
 
