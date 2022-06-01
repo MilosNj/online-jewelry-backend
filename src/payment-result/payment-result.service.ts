@@ -1,26 +1,92 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { DeleteResult, Repository, SelectQueryBuilder } from 'typeorm';
+
 import { CreatePaymentResultDto } from './dto/create-payment-result.dto';
 import { UpdatePaymentResultDto } from './dto/update-payment-result.dto';
+import { PaymentResult } from './entities/payment-result.entity';
+import { FindAllFilterDto } from 'src/products/dto/find-all-filter.dto';
 
 @Injectable()
 export class PaymentResultService {
-  create(createPaymentResultDto: CreatePaymentResultDto) {
-    return 'This action adds a new paymentResult';
+  constructor(
+    @InjectRepository(PaymentResult)
+    private repository: Repository<PaymentResult>,
+  ) {}
+
+  async create(
+    createPaymentResultDto: CreatePaymentResultDto,
+  ): Promise<PaymentResult> {
+    const { email_address, status, update_time } = createPaymentResultDto;
+
+    const paymentResult: PaymentResult = this.repository.create({
+      email_address,
+      status,
+      update_time,
+    });
+
+    await this.repository.save(paymentResult);
+
+    return paymentResult;
   }
 
-  findAll() {
-    return `This action returns all paymentResult`;
+  async findAll(filterDto: FindAllFilterDto): Promise<PaymentResult[]> {
+    const { search } = filterDto;
+
+    const query: SelectQueryBuilder<PaymentResult> =
+      this.repository.createQueryBuilder('paymentResult');
+
+    if (search) {
+      query.andWhere('LOWER(paymentResult._id) LIKE LOWER(:search)', {
+        search: `%${search}%`,
+      });
+    }
+
+    const paymentResults: PaymentResult[] = await query.getMany();
+
+    return paymentResults;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} paymentResult`;
+  async findOne(id: number): Promise<PaymentResult> {
+    const found: PaymentResult = await this.repository.findOne(+id);
+
+    if (!found) {
+      throw new NotFoundException(`Payment result with ID "${id}" not found`);
+    }
+
+    return found;
   }
 
-  update(id: number, updatePaymentResultDto: UpdatePaymentResultDto) {
-    return `This action updates a #${id} paymentResult`;
+  async update(
+    id: number,
+    updatePaymentResultDto: UpdatePaymentResultDto,
+  ): Promise<PaymentResult> {
+    const { email_address, status, update_time } = updatePaymentResultDto;
+
+    const paymentResult: PaymentResult = await this.findOne(+id);
+
+    if (email_address) {
+      paymentResult.email_address = email_address;
+    }
+
+    if (status) {
+      paymentResult.status = status;
+    }
+
+    if (update_time) {
+      paymentResult.update_time = update_time;
+    }
+
+    await this.repository.save(paymentResult);
+
+    return paymentResult;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} paymentResult`;
+  async remove(id: number): Promise<void> {
+    const result: DeleteResult = await this.repository.delete(+id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Payment result with "${id}" not found`);
+    }
   }
 }

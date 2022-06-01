@@ -1,11 +1,11 @@
-import { Column, Entity, OneToOne } from 'typeorm';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Order } from 'src/order/entities/order.entity';
 
 @Entity()
 export class PaymentResult {
-  @Column()
-  id: string;
+  @PrimaryGeneratedColumn()
+  _id: number;
 
   @Column()
   status: string;

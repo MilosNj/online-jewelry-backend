@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository, SelectQueryBuilder } from 'typeorm';
 
 import { FindAllFilterDto } from 'src/products/dto/find-all-filter.dto';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -48,7 +48,8 @@ export class OrderService {
   async findAll(filterDto: FindAllFilterDto): Promise<Order[]> {
     const { search } = filterDto;
 
-    const query = this.repository.createQueryBuilder('order');
+    const query: SelectQueryBuilder<Order> =
+      this.repository.createQueryBuilder('order');
 
     if (search) {
       query.andWhere('LOWER(order._id) LIKE LOWER(:search)', {
@@ -56,13 +57,13 @@ export class OrderService {
       });
     }
 
-    const orders = await query.getMany();
+    const orders: Order[] = await query.getMany();
 
     return orders;
   }
 
   async findOne(id: number): Promise<Order> {
-    const found = await this.repository.findOne(+id);
+    const found: Order = await this.repository.findOne(+id);
 
     if (!found) {
       throw new NotFoundException(`Order with ID "${id}" not found`);
@@ -86,7 +87,7 @@ export class OrderService {
       totalPrice,
     } = updateOrderDto;
 
-    const order = await this.findOne(+id);
+    const order: Order = await this.findOne(+id);
 
     if (date) {
       order.date = date;
@@ -138,7 +139,7 @@ export class OrderService {
   }
 
   async remove(id: number): Promise<void> {
-    const result = await this.repository.delete(+id);
+    const result: DeleteResult = await this.repository.delete(+id);
 
     if (result.affected === 0) {
       throw new NotFoundException(`Order with "${id}" not found`);

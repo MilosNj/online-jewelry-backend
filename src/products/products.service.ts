@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository, SelectQueryBuilder } from 'typeorm';
 
 import { CreateProductDto } from './dto/create-product.dto';
 import { FindAllFilterDto } from './dto/find-all-filter.dto';
@@ -46,7 +46,8 @@ export class ProductsService {
   async findAll(filterDto: FindAllFilterDto): Promise<Product[]> {
     const { search } = filterDto;
 
-    const query = this.repository.createQueryBuilder('product');
+    const query: SelectQueryBuilder<Product> =
+      this.repository.createQueryBuilder('product');
 
     if (search) {
       query.andWhere('LOWER(product.name) LIKE LOWER(:search)', {
@@ -54,13 +55,13 @@ export class ProductsService {
       });
     }
 
-    const products = await query.getMany();
+    const products: Product[] = await query.getMany();
 
     return products;
   }
 
   async findOne(id: number): Promise<Product> {
-    const found = await this.repository.findOne(+id);
+    const found: Product = await this.repository.findOne(+id);
 
     if (!found) {
       throw new NotFoundException(`Product with ID "${id}" not found`);
@@ -85,7 +86,7 @@ export class ProductsService {
       numOfReviews,
     } = updateProductDto;
 
-    const product = await this.findOne(+id);
+    const product: Product = await this.findOne(+id);
 
     if (name) {
       product.name = name;
@@ -129,7 +130,7 @@ export class ProductsService {
   }
 
   async remove(id: number): Promise<void> {
-    const result = await this.repository.delete(+id);
+    const result: DeleteResult = await this.repository.delete(+id);
 
     if (result.affected === 0) {
       throw new NotFoundException(`Product with "${id}" not found`);
