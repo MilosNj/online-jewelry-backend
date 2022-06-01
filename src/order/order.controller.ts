@@ -6,38 +6,44 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { FindAllFilterDto } from 'src/products/dto/find-all-filter.dto';
+import { Order } from './entities/order.entity';
 
 @Controller('order')
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   @Post()
-  create(@Body() createOrderDto: CreateOrderDto) {
+  create(@Body() createOrderDto: CreateOrderDto): Promise<Order> {
     return this.orderService.create(createOrderDto);
   }
 
   @Get()
-  findAll() {
-    return this.orderService.findAll();
+  findAll(@Query() filterDto: FindAllFilterDto): Promise<Order[]> {
+    return this.orderService.findAll(filterDto);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number): Promise<Order> {
     return this.orderService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
+  update(
+    @Param('id') id: number,
+    @Body() updateOrderDto: UpdateOrderDto,
+  ): Promise<Order> {
     return this.orderService.update(+id, updateOrderDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number): Promise<void> {
     return this.orderService.remove(+id);
   }
 }

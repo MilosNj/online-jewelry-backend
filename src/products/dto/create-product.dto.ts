@@ -1,5 +1,7 @@
 import { IsNotEmpty } from 'class-validator';
 
+import { OrderItem } from 'src/order-item/entities/order-item.entity';
+
 export class CreateProductDto {
   @IsNotEmpty()
   name: string;
@@ -27,4 +29,10 @@ export class CreateProductDto {
 
   @IsNotEmpty()
   numOfReviews: number;
+
+  @IsNotEmpty()
+  orderItems: OrderItem[];
+
+  @IsNotEmpty()
+  paymentMethod: string;
 }

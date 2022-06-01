@@ -22,6 +22,9 @@ export class CreateOrderDto {
   shippingPrice: number;
 
   @IsNotEmpty()
+  totalPrice: number;
+
+  @IsNotEmpty()
   isPaid: boolean;
 
   paidAt: Date;
