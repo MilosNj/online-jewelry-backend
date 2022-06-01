@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 
 import { OrderItemService } from './order-item.service';
@@ -24,7 +25,7 @@ export class OrderItemController {
   }
 
   @Get()
-  findAll(filterDto: FindAllFilterDto): Promise<OrderItem[]> {
+  findAll(@Query() filterDto: FindAllFilterDto): Promise<OrderItem[]> {
     return this.orderItemService.findAll(filterDto);
   }
 

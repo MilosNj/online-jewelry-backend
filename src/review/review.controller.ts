@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 
 import { ReviewService } from './review.service';
@@ -24,7 +25,7 @@ export class ReviewController {
   }
 
   @Get()
-  findAll(filterDto: FindAllFilterDto): Promise<Review[]> {
+  findAll(@Query() filterDto: FindAllFilterDto): Promise<Review[]> {
     return this.reviewService.findAll(filterDto);
   }
 

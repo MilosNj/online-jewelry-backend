@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 
 import { PaymentResultService } from './payment-result.service';
@@ -26,7 +27,7 @@ export class PaymentResultController {
   }
 
   @Get()
-  findAll(filterDto: FindAllFilterDto): Promise<PaymentResult[]> {
+  findAll(@Query() filterDto: FindAllFilterDto): Promise<PaymentResult[]> {
     return this.paymentResultService.findAll(filterDto);
   }
 

@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 
 import { UsersService } from './users.service';
@@ -24,7 +25,7 @@ export class UsersController {
   }
 
   @Get()
-  findAll(filterDto: FindAllFilterDto): Promise<User[]> {
+  findAll(@Query() filterDto: FindAllFilterDto): Promise<User[]> {
     return this.usersService.findAll(filterDto);
   }
 

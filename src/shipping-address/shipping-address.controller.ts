@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 
 import { ShippingAddressService } from './shipping-address.service';
@@ -28,7 +29,7 @@ export class ShippingAddressController {
   }
 
   @Get()
-  findAll(filterDto: FindAllFilterDto): Promise<ShippingAddress[]> {
+  findAll(@Query() filterDto: FindAllFilterDto): Promise<ShippingAddress[]> {
     return this.shippingAddressService.findAll(filterDto);
   }
 
