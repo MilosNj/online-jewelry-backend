@@ -7,8 +7,27 @@ export class CreateOrderDto {
   orderItems: OrderItem[];
 
   @IsNotEmpty()
+  paymentMethod: string;
+
+  @IsNotEmpty()
   date: string;
 
   @IsNotEmpty()
   dateTime: Date;
+
+  @IsNotEmpty()
+  taxPrice: number;
+
+  @IsNotEmpty()
+  shippingPrice: number;
+
+  @IsNotEmpty()
+  isPaid: boolean;
+
+  paidAt: Date;
+
+  @IsNotEmpty()
+  isDelivered: boolean;
+
+  deliveredAt: Date;
 }

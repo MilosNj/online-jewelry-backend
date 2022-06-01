@@ -30,7 +30,7 @@ export class Product {
   @Column()
   category: string;
 
-  @Column({ type: 'double precision', scale: 2, default: 0 })
+  @Column({ type: 'double precision', scale: 2, default: 0.0 })
   price: number;
 
   @Column({ default: 0 })
@@ -39,7 +39,7 @@ export class Product {
   @Column()
   reviews: Review[];
 
-  @Column({ type: 'double precision', scale: 2, default: 0 })
+  @Column({ type: 'double precision', scale: 2, default: 0.0 })
   rating: number;
 
   @Column({ default: 0 })

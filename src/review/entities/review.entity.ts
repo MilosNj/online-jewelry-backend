@@ -5,7 +5,7 @@ export class Review {
   @Column()
   name: string;
 
-  @Column({ default: 0, type: 'double precision', scale: 2 })
+  @Column({ default: 0.0, type: 'double precision', scale: 2 })
   rating: number;
 
   @Column()

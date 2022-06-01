@@ -16,7 +16,7 @@ export class OrderItem {
   @Column()
   image: string;
 
-  @Column({ type: 'double precision', scale: 2, default: 0 })
+  @Column({ type: 'double precision', scale: 2, default: 0.0 })
   price: number;
 
   @OneToOne((_type) => Product, (product) => product.orderItem, { eager: true })
