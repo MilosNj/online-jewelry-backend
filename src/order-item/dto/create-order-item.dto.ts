@@ -1,18 +1,15 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class CreateReviewDto {
+export class CreateOrderItemDto {
   @IsNotEmpty()
   name: string;
 
   @IsNotEmpty()
-  rating: number;
+  quantity: number;
 
   @IsNotEmpty()
-  comment: string;
+  image: string;
 
   @IsNotEmpty()
-  date: string;
-
-  @IsNotEmpty()
-  dateTime: Date;
+  price: number;
 }

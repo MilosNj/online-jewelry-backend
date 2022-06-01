@@ -10,4 +10,10 @@ export class Review {
 
   @Column()
   comment: string;
+
+  @Column({ type: 'date' })
+  date: string;
+
+  @Column({ type: 'timestamptz' })
+  dateTime: Date;
 }

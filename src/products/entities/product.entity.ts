@@ -1,6 +1,14 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 import { User } from 'src/users/entities/user.entity';
+import { Review } from 'src/review/entities/review.entity';
+import { OrderItem } from 'src/order-item/entities/order-item.entity';
 
 @Entity()
 export class Product {
@@ -28,6 +36,9 @@ export class Product {
   @Column({ default: 0 })
   countInStock: number;
 
+  @Column()
+  reviews: Review[];
+
   @Column({ type: 'double precision', scale: 2, default: 0 })
   rating: number;
 
@@ -36,4 +47,9 @@ export class Product {
 
   @ManyToOne((_type) => User, (user) => user.products, { eager: false })
   user: User;
+
+  @OneToOne((_type) => OrderItem, (orderItem) => orderItem.product, {
+    eager: false,
+  })
+  orderItem: OrderItem;
 }
