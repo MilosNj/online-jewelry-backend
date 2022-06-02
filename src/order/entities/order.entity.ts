@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -15,9 +16,6 @@ import { PaymentResult } from 'src/payment-result/entities/payment-result.entity
 export class Order {
   @PrimaryGeneratedColumn()
   _id: number;
-
-  @Column()
-  orderItems: OrderItem[];
 
   @Column()
   paymentMethod: string;
@@ -63,4 +61,9 @@ export class Order {
     { eager: true },
   )
   shippingAddress: ShippingAddress;
+
+  @OneToMany((_type) => OrderItem, (orderItem) => orderItem.order, {
+    eager: true,
+  })
+  orderItems: OrderItem[];
 }

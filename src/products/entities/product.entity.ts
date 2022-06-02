@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -36,9 +37,6 @@ export class Product {
   @Column({ default: 0 })
   countInStock: number;
 
-  @Column()
-  reviews: Review[];
-
   @Column({ type: 'double precision', scale: 2, default: 0.0 })
   rating: number;
 
@@ -52,4 +50,7 @@ export class Product {
     eager: false,
   })
   orderItem: OrderItem;
+
+  @OneToMany((_type) => Review, (review) => review.product, { eager: true })
+  reviews: Review[];
 }

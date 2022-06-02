@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Product } from 'src/products/entities/product.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Review {
@@ -19,4 +20,7 @@ export class Review {
 
   @Column({ type: 'timestamptz' })
   dateTime: Date;
+
+  @ManyToOne((_type) => Product, (product) => product.reviews, { eager: false })
+  product: Product;
 }

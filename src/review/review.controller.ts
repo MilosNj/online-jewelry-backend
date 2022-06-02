@@ -13,7 +13,7 @@ import { ReviewService } from './review.service';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
 import { Review } from './entities/review.entity';
-import { FindAllFilterDto } from 'src/products/dto/find-all-filter.dto';
+// import { FindAllFilterDto } from 'src/products/dto/find-all-filter.dto';
 
 @Controller('review')
 export class ReviewController {
@@ -24,10 +24,10 @@ export class ReviewController {
     return this.reviewService.create(createReviewDto);
   }
 
-  @Get()
-  findAll(@Query() filterDto: FindAllFilterDto): Promise<Review[]> {
-    return this.reviewService.findAll(filterDto);
-  }
+  // @Get()
+  // findAll(@Query() filterDto: FindAllFilterDto): Promise<Review[]> {
+  //   return this.reviewService.findAll(filterDto);
+  // }
 
   @Get(':id')
   findOne(@Param('id') id: string): Promise<Review> {

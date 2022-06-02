@@ -13,7 +13,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
-import { FindAllFilterDto } from 'src/products/dto/find-all-filter.dto';
+// import { FindAllFilterDto } from 'src/products/dto/find-all-filter.dto';
 
 @Controller('users')
 export class UsersController {
@@ -24,10 +24,10 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
-  @Get()
-  findAll(@Query() filterDto: FindAllFilterDto): Promise<User[]> {
-    return this.usersService.findAll(filterDto);
-  }
+  // @Get()
+  // findAll(@Query() filterDto: FindAllFilterDto): Promise<User[]> {
+  //   return this.usersService.findAll(filterDto);
+  // }
 
   @Get(':id')
   findOne(@Param('id') id: string): Promise<User> {

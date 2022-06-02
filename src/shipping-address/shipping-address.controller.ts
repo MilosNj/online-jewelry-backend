@@ -13,7 +13,7 @@ import { ShippingAddressService } from './shipping-address.service';
 import { CreateShippingAddressDto } from './dto/create-shipping-address.dto';
 import { UpdateShippingAddressDto } from './dto/update-shipping-address.dto';
 import { ShippingAddress } from './entities/shipping-address.entity';
-import { FindAllFilterDto } from 'src/products/dto/find-all-filter.dto';
+// import { FindAllFilterDto } from 'src/products/dto/find-all-filter.dto';
 
 @Controller('shipping-address')
 export class ShippingAddressController {
@@ -28,10 +28,10 @@ export class ShippingAddressController {
     return this.shippingAddressService.create(createShippingAddressDto);
   }
 
-  @Get()
-  findAll(@Query() filterDto: FindAllFilterDto): Promise<ShippingAddress[]> {
-    return this.shippingAddressService.findAll(filterDto);
-  }
+  // @Get()
+  // findAll(@Query() filterDto: FindAllFilterDto): Promise<ShippingAddress[]> {
+  //   return this.shippingAddressService.findAll(filterDto);
+  // }
 
   @Get(':id')
   findOne(@Param('id') id: string): Promise<ShippingAddress> {

@@ -1,6 +1,13 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 import { Product } from 'src/products/entities/product.entity';
+import { Order } from 'src/order/entities/order.entity';
 
 @Entity()
 export class OrderItem {
@@ -21,4 +28,7 @@ export class OrderItem {
 
   @OneToOne((_type) => Product, (product) => product.orderItem, { eager: true })
   product: Product;
+
+  @ManyToOne((_type) => Order, (order) => order.orderItems, { eager: false })
+  order: Order;
 }
