@@ -43,14 +43,12 @@ export class Product {
   @Column({ default: 0 })
   numOfReviews: number;
 
-  @ManyToOne((_type) => User, (user) => user.products, { eager: false })
+  @ManyToOne(() => User, (user) => user.products)
   user: User;
 
-  @OneToOne((_type) => OrderItem, (orderItem) => orderItem.product, {
-    eager: false,
-  })
+  @OneToOne(() => OrderItem, (orderItem) => orderItem.product)
   orderItem: OrderItem;
 
-  @OneToMany((_type) => Review, (review) => review.product, { eager: true })
+  @OneToMany(() => Review, (review) => review.product, { eager: true })
   reviews: Review[];
 }

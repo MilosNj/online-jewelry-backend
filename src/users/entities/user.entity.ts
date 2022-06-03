@@ -26,9 +26,9 @@ export class User {
   @Column({ type: 'timestamptz' })
   dateTime: Date;
 
-  @OneToMany((_type) => Product, (product) => product.user, { eager: true })
+  @OneToMany(() => Product, (product) => product.user, { eager: true })
   products: Product[];
 
-  @OneToMany((_type) => Order, (order) => order.user, { eager: true })
+  @OneToMany(() => Order, (order) => order.user, { eager: true })
   orders: Order[];
 }

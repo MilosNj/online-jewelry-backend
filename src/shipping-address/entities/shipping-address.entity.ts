@@ -19,8 +19,6 @@ export class ShippingAddress {
   @Column()
   country: string;
 
-  @OneToOne((_type) => Order, (order) => order.shippingAddress, {
-    eager: false,
-  })
+  @OneToOne(() => Order, (order) => order.shippingAddress)
   order: Order;
 }

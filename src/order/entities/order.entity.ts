@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   OneToOne,
@@ -47,22 +48,22 @@ export class Order {
   @Column()
   deliveredAt: Date;
 
-  @ManyToOne((_type) => User, (user) => user.name, { eager: false })
+  @ManyToOne(() => User, (user) => user.orders)
   user: User;
 
-  @OneToOne((_type) => PaymentResult, (paymentResult) => paymentResult.order, {
+  @OneToOne(() => PaymentResult, (paymentResult) => paymentResult.order, {
     eager: true,
   })
+  @JoinColumn()
   paymentResult: PaymentResult;
 
-  @OneToOne(
-    (_type) => ShippingAddress,
-    (shippingAddress) => shippingAddress.order,
-    { eager: true },
-  )
+  @OneToOne(() => ShippingAddress, (shippingAddress) => shippingAddress.order, {
+    eager: true,
+  })
+  @JoinColumn()
   shippingAddress: ShippingAddress;
 
-  @OneToMany((_type) => OrderItem, (orderItem) => orderItem.order, {
+  @OneToMany(() => OrderItem, (orderItem) => orderItem.order, {
     eager: true,
   })
   orderItems: OrderItem[];

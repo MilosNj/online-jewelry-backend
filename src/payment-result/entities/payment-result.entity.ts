@@ -16,6 +16,6 @@ export class PaymentResult {
   @Column()
   email_address: string;
 
-  @OneToOne((_type) => Order, (order) => order.paymentResult, { eager: false })
+  @OneToOne(() => Order, (order) => order.paymentResult)
   order: Order;
 }

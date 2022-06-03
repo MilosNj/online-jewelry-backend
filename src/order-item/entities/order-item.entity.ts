@@ -26,9 +26,9 @@ export class OrderItem {
   @Column({ type: 'double precision', scale: 2, default: 0.0 })
   price: number;
 
-  @OneToOne((_type) => Product, (product) => product.orderItem, { eager: true })
+  @OneToOne(() => Product, (product) => product.orderItem, { eager: true })
   product: Product;
 
-  @ManyToOne((_type) => Order, (order) => order.orderItems, { eager: false })
+  @ManyToOne(() => Order, (order) => order.orderItems)
   order: Order;
 }

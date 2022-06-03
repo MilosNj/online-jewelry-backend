@@ -21,6 +21,6 @@ export class Review {
   @Column({ type: 'timestamptz' })
   dateTime: Date;
 
-  @ManyToOne((_type) => Product, (product) => product.reviews, { eager: false })
+  @ManyToOne(() => Product, (product) => product.reviews)
   product: Product;
 }
