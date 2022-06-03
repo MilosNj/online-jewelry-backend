@@ -5,7 +5,7 @@ import { DeleteResult, Repository } from 'typeorm';
 import { CreateShippingAddressDto } from './dto/create-shipping-address.dto';
 import { UpdateShippingAddressDto } from './dto/update-shipping-address.dto';
 import { ShippingAddress } from './entities/shipping-address.entity';
-import { FindAllFilterDto } from 'src/products/dto/find-all-filter.dto';
+import { FindAllFilterDto } from 'helper/find-all-filter.dto';
 
 @Injectable()
 export class ShippingAddressService {

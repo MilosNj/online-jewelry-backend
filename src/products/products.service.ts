@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, SelectQueryBuilder } from 'typeorm';
 
 import { CreateProductDto } from './dto/create-product.dto';
-import { FindAllFilterDto } from './dto/find-all-filter.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entities/product.entity';
+import { FindAllFilterDto } from 'helper/find-all-filter.dto';
 
 @Injectable()
 export class ProductsService {

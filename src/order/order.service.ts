@@ -2,10 +2,10 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, SelectQueryBuilder } from 'typeorm';
 
-import { FindAllFilterDto } from 'src/products/dto/find-all-filter.dto';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { Order } from './entities/order.entity';
+import { FindAllFilterDto } from 'helper/find-all-filter.dto';
 
 @Injectable()
 export class OrderService {
@@ -18,7 +18,6 @@ export class OrderService {
       deliveredAt,
       isDelivered,
       isPaid,
-      orderItems,
       paidAt,
       paymentMethod,
       shippingPrice,
@@ -32,7 +31,6 @@ export class OrderService {
       deliveredAt,
       isDelivered,
       isPaid,
-      orderItems,
       paidAt,
       paymentMethod,
       shippingPrice,
@@ -79,7 +77,6 @@ export class OrderService {
       deliveredAt,
       isDelivered,
       isPaid,
-      orderItems,
       paidAt,
       paymentMethod,
       shippingPrice,
@@ -107,10 +104,6 @@ export class OrderService {
 
     if (isPaid) {
       order.isPaid = isPaid;
-    }
-
-    if (orderItems) {
-      order.orderItems = orderItems;
     }
 
     if (paidAt) {

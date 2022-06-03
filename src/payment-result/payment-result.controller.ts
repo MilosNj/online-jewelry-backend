@@ -13,7 +13,7 @@ import { PaymentResultService } from './payment-result.service';
 import { CreatePaymentResultDto } from './dto/create-payment-result.dto';
 import { UpdatePaymentResultDto } from './dto/update-payment-result.dto';
 import { PaymentResult } from './entities/payment-result.entity';
-// import { FindAllFilterDto } from 'src/products/dto/find-all-filter.dto';
+import { FindAllFilterDto } from 'helper/find-all-filter.dto';
 
 @Controller('payment-result')
 export class PaymentResultController {
@@ -26,10 +26,10 @@ export class PaymentResultController {
     return this.paymentResultService.create(createPaymentResultDto);
   }
 
-  // @Get()
-  // findAll(@Query() filterDto: FindAllFilterDto): Promise<PaymentResult[]> {
-  //   return this.paymentResultService.findAll(filterDto);
-  // }
+  @Get()
+  findAll(@Query() filterDto: FindAllFilterDto): Promise<PaymentResult[]> {
+    return this.paymentResultService.findAll(filterDto);
+  }
 
   @Get(':id')
   findOne(@Param('id') id: string): Promise<PaymentResult> {

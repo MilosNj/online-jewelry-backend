@@ -12,8 +12,8 @@ import {
 import { OrderItemService } from './order-item.service';
 import { CreateOrderItemDto } from './dto/create-order-item.dto';
 import { UpdateOrderItemDto } from './dto/update-order-item.dto';
-// import { FindAllFilterDto } from 'src/products/dto/find-all-filter.dto';
 import { OrderItem } from './entities/order-item.entity';
+import { FindAllFilterDto } from 'helper/find-all-filter.dto';
 
 @Controller('order-item')
 export class OrderItemController {
@@ -24,10 +24,10 @@ export class OrderItemController {
     return this.orderItemService.create(createOrderItemDto);
   }
 
-  // @Get()
-  // findAll(@Query() filterDto: FindAllFilterDto): Promise<OrderItem[]> {
-  //   return this.orderItemService.findAll(filterDto);
-  // }
+  @Get()
+  findAll(@Query() filterDto: FindAllFilterDto): Promise<OrderItem[]> {
+    return this.orderItemService.findAll(filterDto);
+  }
 
   @Get(':id')
   findOne(@Param('id') id: string): Promise<OrderItem> {

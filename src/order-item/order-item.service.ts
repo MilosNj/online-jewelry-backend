@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { FindAllFilterDto } from 'helper/find-all-filter.dto';
 import { DeleteResult, Repository, SelectQueryBuilder } from 'typeorm';
 
 import { CreateOrderItemDto } from './dto/create-order-item.dto';
 import { UpdateOrderItemDto } from './dto/update-order-item.dto';
 import { OrderItem } from './entities/order-item.entity';
-import { FindAllFilterDto } from 'src/products/dto/find-all-filter.dto';
 
 @Injectable()
 export class OrderItemService {

@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindAllFilterDto } from 'src/products/dto/find-all-filter.dto';
 import { DeleteResult, Repository, SelectQueryBuilder } from 'typeorm';
 
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
 import { Review } from './entities/review.entity';
+import { FindAllFilterDto } from 'helper/find-all-filter.dto';
 
 @Injectable()
 export class ReviewService {
