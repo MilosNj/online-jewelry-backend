@@ -1,21 +1,32 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, SelectQueryBuilder } from 'typeorm';
+import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { FindAllFilterDto } from 'helper/find-all-filter.dto';
+import { JwtPayload } from './jwt-payload.interface';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private repository: Repository<User>,
+    private jwtService: JwtService,
   ) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async signUp(createUserDto: CreateUserDto): Promise<User> {
     const { date, dateTime, email, isAdmin, name, password } = createUserDto;
+
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     const user: User = this.repository.create({
       date,
@@ -23,12 +34,27 @@ export class UsersService {
       email,
       isAdmin,
       name,
-      password,
+      password: hashedPassword,
     });
 
     await this.repository.save(user);
 
     return user;
+  }
+
+  async signIn(createUserDto: CreateUserDto): Promise<{ accessToken: string }> {
+    const { email, password } = createUserDto;
+
+    const user = await this.repository.findOne({ email });
+
+    if (user && (await bcrypt.compare(password, user.password))) {
+      const payload: JwtPayload = { email };
+      const accessToken: string = this.jwtService.sign(payload);
+
+      return { accessToken };
+    } else {
+      throw new UnauthorizedException('Please check your login credentials');
+    }
   }
 
   async findAll(filterDto: FindAllFilterDto): Promise<User[]> {

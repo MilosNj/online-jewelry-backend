@@ -19,9 +19,16 @@ import { FindAllFilterDto } from 'helper/find-all-filter.dto';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.usersService.create(createUserDto);
+  @Post('/signup')
+  signUp(@Body() createUserDto: CreateUserDto): Promise<User> {
+    return this.usersService.signUp(createUserDto);
+  }
+
+  @Post('/signin')
+  signIn(
+    @Body() createUserDto: CreateUserDto,
+  ): Promise<{ accessToken: string }> {
+    return this.usersService.signIn(createUserDto);
   }
 
   @Get()
