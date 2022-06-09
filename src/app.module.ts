@@ -29,6 +29,7 @@ import envConfig from '../config/env';
         database: configService.get('DB_DATABASE'),
         autoLoadEntities: true,
         synchronize: true,
+        logging: true,
       }),
     }),
     ProductsModule,

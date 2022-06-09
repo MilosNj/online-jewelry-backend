@@ -1,11 +1,12 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 import { User } from 'src/users/entities/user.entity';
@@ -21,11 +22,11 @@ export class Order {
   @Column()
   paymentMethod: string;
 
-  @Column({ type: 'date' })
-  date: string;
+  @CreateDateColumn()
+  createDate: Date;
 
-  @Column({ type: 'timestamptz' })
-  dateTime: Date;
+  @UpdateDateColumn()
+  updateDate: Date;
 
   @Column({ type: 'double precision', scale: 2, default: 0.0 })
   taxPrice: number;
@@ -54,13 +55,11 @@ export class Order {
   @OneToOne(() => PaymentResult, (paymentResult) => paymentResult.order, {
     eager: true,
   })
-  @JoinColumn()
   paymentResult: PaymentResult;
 
   @OneToOne(() => ShippingAddress, (shippingAddress) => shippingAddress.order, {
     eager: true,
   })
-  @JoinColumn()
   shippingAddress: ShippingAddress;
 
   @OneToMany(() => OrderItem, (orderItem) => orderItem.order, {

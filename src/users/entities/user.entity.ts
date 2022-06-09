@@ -1,4 +1,11 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 import { Product } from 'src/products/entities/product.entity';
 import { Order } from 'src/order/entities/order.entity';
@@ -20,11 +27,11 @@ export class User {
   @Column({ default: false })
   isAdmin: boolean;
 
-  @Column({ type: 'date' })
-  date: string;
+  @CreateDateColumn()
+  createDate: Date;
 
-  @Column({ type: 'timestamptz' })
-  dateTime: Date;
+  @UpdateDateColumn()
+  updateDate: Date;
 
   @OneToMany(() => Product, (product) => product.user, { eager: true })
   products: Product[];

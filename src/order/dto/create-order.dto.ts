@@ -5,12 +5,6 @@ export class CreateOrderDto {
   paymentMethod: string;
 
   @IsNotEmpty()
-  date: string;
-
-  @IsNotEmpty()
-  dateTime: Date;
-
-  @IsNotEmpty()
   taxPrice: number;
 
   @IsNotEmpty()
@@ -18,14 +12,4 @@ export class CreateOrderDto {
 
   @IsNotEmpty()
   totalPrice: number;
-
-  @IsNotEmpty()
-  isPaid: boolean;
-
-  paidAt: Date;
-
-  @IsNotEmpty()
-  isDelivered: boolean;
-
-  deliveredAt: Date;
 }

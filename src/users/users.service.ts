@@ -23,16 +23,13 @@ export class UsersService {
   ) {}
 
   async signUp(createUserDto: CreateUserDto): Promise<User> {
-    const { date, dateTime, email, isAdmin, name, password } = createUserDto;
+    const { email, name, password } = createUserDto;
 
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const user: User = this.repository.create({
-      date,
-      dateTime,
       email,
-      isAdmin,
       name,
       password: hashedPassword,
     });
@@ -85,17 +82,9 @@ export class UsersService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
-    const { date, dateTime, email, isAdmin, name, password } = updateUserDto;
+    const { email, isAdmin, name, password } = updateUserDto;
 
     const user: User = await this.findOne(+id);
-
-    if (date) {
-      user.date = date;
-    }
-
-    if (dateTime) {
-      user.dateTime = dateTime;
-    }
 
     if (email) {
       user.email = email;

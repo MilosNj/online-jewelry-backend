@@ -12,26 +12,10 @@ export class OrderService {
   constructor(@InjectRepository(Order) private repository: Repository<Order>) {}
 
   async create(createOrderDto: CreateOrderDto): Promise<Order> {
-    const {
-      date,
-      dateTime,
-      deliveredAt,
-      isDelivered,
-      isPaid,
-      paidAt,
-      paymentMethod,
-      shippingPrice,
-      taxPrice,
-      totalPrice,
-    } = createOrderDto;
+    const { paymentMethod, shippingPrice, taxPrice, totalPrice } =
+      createOrderDto;
 
     const order: Order = this.repository.create({
-      date,
-      dateTime,
-      deliveredAt,
-      isDelivered,
-      isPaid,
-      paidAt,
       paymentMethod,
       shippingPrice,
       taxPrice,
@@ -72,8 +56,6 @@ export class OrderService {
 
   async update(id: number, updateOrderDto: UpdateOrderDto): Promise<Order> {
     const {
-      date,
-      dateTime,
       deliveredAt,
       isDelivered,
       isPaid,
@@ -85,14 +67,6 @@ export class OrderService {
     } = updateOrderDto;
 
     const order: Order = await this.findOne(+id);
-
-    if (date) {
-      order.date = date;
-    }
-
-    if (dateTime) {
-      order.dateTime = dateTime;
-    }
 
     if (deliveredAt) {
       order.deliveredAt = deliveredAt;

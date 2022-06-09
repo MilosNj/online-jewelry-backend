@@ -23,13 +23,4 @@ export class CreateUserDto {
     message: 'Password is too weak',
   })
   password: string;
-
-  @IsNotEmpty()
-  isAdmin: boolean;
-
-  @IsNotEmpty()
-  date: string;
-
-  @IsNotEmpty()
-  dateTime: Date;
 }
