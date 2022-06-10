@@ -49,8 +49,8 @@ export class Order {
   @Column()
   deliveredAt: Date;
 
-  @ManyToOne(() => User, (user) => user.orders)
-  user: User;
+  // @ManyToOne(() => User, (user) => user.orders)
+  // user: User;
 
   @OneToOne(() => PaymentResult, (paymentResult) => paymentResult.order, {
     eager: true,
