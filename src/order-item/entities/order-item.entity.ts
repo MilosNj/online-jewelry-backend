@@ -29,6 +29,6 @@ export class OrderItem {
   @OneToOne(() => Product, (product) => product.orderItem, { eager: true })
   product: Product;
 
-  @ManyToOne(() => Order, (order) => order.orderItems)
-  order: Order;
+  // @ManyToOne(() => Order, (order) => order.orderItems)
+  // order: Order;
 }

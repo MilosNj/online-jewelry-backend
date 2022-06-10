@@ -16,6 +16,6 @@ export class PaymentResult {
   @Column()
   email_address: string;
 
-  @OneToOne(() => Order, (order) => order.paymentResult)
-  order: Order;
+  // @OneToOne(() => Order, (order) => order.paymentResult)
+  // order: Order;
 }

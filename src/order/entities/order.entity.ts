@@ -40,30 +40,30 @@ export class Order {
   @Column({ default: false })
   isPaid: boolean;
 
-  @Column()
+  @UpdateDateColumn()
   paidAt: Date;
 
   @Column({ default: false })
   isDelivered: boolean;
 
-  @Column()
+  @UpdateDateColumn()
   deliveredAt: Date;
 
-  // @ManyToOne(() => User, (user) => user.orders)
-  // user: User;
+  @ManyToOne(() => User, (user) => user.orders)
+  user: User;
 
-  @OneToOne(() => PaymentResult, (paymentResult) => paymentResult.order, {
-    eager: true,
-  })
-  paymentResult: PaymentResult;
+  // @OneToOne(() => PaymentResult, (paymentResult) => paymentResult.order, {
+  //   eager: true,
+  // })
+  // paymentResult: PaymentResult;
 
-  @OneToOne(() => ShippingAddress, (shippingAddress) => shippingAddress.order, {
-    eager: true,
-  })
-  shippingAddress: ShippingAddress;
+  // @OneToOne(() => ShippingAddress, (shippingAddress) => shippingAddress.order, {
+  //   eager: true,
+  // })
+  // shippingAddress: ShippingAddress;
 
-  @OneToMany(() => OrderItem, (orderItem) => orderItem.order, {
-    eager: true,
-  })
-  orderItems: OrderItem[];
+  // @OneToMany(() => OrderItem, (orderItem) => orderItem.order, {
+  //   eager: true,
+  // })
+  // orderItems: OrderItem[];
 }
