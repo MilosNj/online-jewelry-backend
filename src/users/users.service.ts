@@ -23,7 +23,7 @@ export class UsersService {
   ) {}
 
   async signUp(createUserDto: CreateUserDto): Promise<User> {
-    const { email, name, password } = createUserDto;
+    const { email, name, password, isAdmin } = createUserDto;
 
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -32,6 +32,7 @@ export class UsersService {
       email,
       name,
       password: hashedPassword,
+      isAdmin: isAdmin === 'true' ? true : false,
     });
 
     await this.repository.save(user);
@@ -91,7 +92,7 @@ export class UsersService {
     }
 
     if (isAdmin) {
-      user.isAdmin = isAdmin;
+      user.isAdmin = isAdmin === 'true';
     }
 
     if (name) {
@@ -99,7 +100,9 @@ export class UsersService {
     }
 
     if (password) {
-      user.password = password;
+      const salt = await bcrypt.genSalt();
+      const hashedPassword = await bcrypt.hash(password, salt);
+      user.password = hashedPassword;
     }
 
     await this.repository.save(user);
