@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import envConfig from '../config/env';
 import { ProductsModule } from './products/products.module';
 import { UsersModule } from './users/users.module';
 import { OrderModule } from './order/order.module';
@@ -9,7 +10,6 @@ import { ReviewModule } from './review/review.module';
 import { OrderItemModule } from './order-item/order-item.module';
 import { ShippingAddressModule } from './shipping-address/shipping-address.module';
 import { PaymentResultModule } from './payment-result/payment-result.module';
-import envConfig from '../config/env';
 
 @Module({
   imports: [
