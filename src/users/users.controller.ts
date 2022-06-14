@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 
 import { UsersService } from './users.service';
@@ -15,6 +16,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { FindAllFilterDto } from 'helper/find-all-filter.dto';
 import { AuthenticateUserDto } from './dto/authenticate-user.dto';
+import { LocalAuthGuard } from 'auth/local-auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -26,15 +28,25 @@ export class UsersController {
   }
 
   @Post('/signin')
-  signIn(
-    @Body() authenticateUser: AuthenticateUserDto,
-  ): Promise<{ accessToken: string }> {
+  signIn(@Body() authenticateUser: AuthenticateUserDto): Promise<{
+    accessToken: string;
+    isAdmin: boolean;
+    name: string;
+    email: string;
+    id: number;
+  }> {
     return this.usersService.signIn(authenticateUser);
   }
 
   @Get()
   findAll(@Query() filterDto: FindAllFilterDto): Promise<User[]> {
     return this.usersService.findAll(filterDto);
+  }
+
+  @Get('/profile')
+  @UseGuards(LocalAuthGuard)
+  getUserProfile(): Promise<{ message: string }> {
+    return this.usersService.getUserProfile();
   }
 
   @Get(':id')
