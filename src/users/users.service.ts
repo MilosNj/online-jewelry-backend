@@ -13,6 +13,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { FindAllFilterDto } from 'helper/find-all-filter.dto';
 import { JwtPayload } from './jwt-payload.interface';
+import { AuthenticateUserDto } from './dto/authenticate-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -40,8 +41,10 @@ export class UsersService {
     return user;
   }
 
-  async signIn(createUserDto: CreateUserDto): Promise<{ accessToken: string }> {
-    const { email, password } = createUserDto;
+  async signIn(
+    authenticateUser: AuthenticateUserDto,
+  ): Promise<{ accessToken: string }> {
+    const { email, password } = authenticateUser;
 
     const user = await this.repository.findOne({ email });
 

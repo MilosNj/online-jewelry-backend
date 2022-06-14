@@ -14,6 +14,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { FindAllFilterDto } from 'helper/find-all-filter.dto';
+import { AuthenticateUserDto } from './dto/authenticate-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -26,9 +27,9 @@ export class UsersController {
 
   @Post('/signin')
   signIn(
-    @Body() createUserDto: CreateUserDto,
+    @Body() authenticateUser: AuthenticateUserDto,
   ): Promise<{ accessToken: string }> {
-    return this.usersService.signIn(createUserDto);
+    return this.usersService.signIn(authenticateUser);
   }
 
   @Get()
