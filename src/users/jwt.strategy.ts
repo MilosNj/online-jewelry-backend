@@ -6,12 +6,13 @@ import { Repository } from 'typeorm';
 
 import { User } from './entities/user.entity';
 import { JwtPayload } from './jwt-payload.interface';
+import appConfig from 'config/app.config';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(@InjectRepository(User) private repository: Repository<User>) {
     super({
-      secretOrKey: 'topSecret51',
+      secretOrKey: appConfig().appSecret,
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     });
   }

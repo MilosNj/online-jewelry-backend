@@ -43,7 +43,7 @@ export class UsersService {
 
   async signIn(
     authenticateUser: AuthenticateUserDto,
-  ): Promise<{ accessToken: string }> {
+  ): Promise<{ accessToken: string; isAdmin: boolean }> {
     const { email, password } = authenticateUser;
 
     const user = await this.repository.findOne({ email });
@@ -52,7 +52,7 @@ export class UsersService {
       const payload: JwtPayload = { email };
       const accessToken: string = this.jwtService.sign(payload);
 
-      return { accessToken };
+      return { accessToken, isAdmin: user.isAdmin };
     } else {
       throw new UnauthorizedException('Please check your login credentials');
     }
