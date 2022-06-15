@@ -61,6 +61,7 @@ export class UsersService {
   }
 
   async getUserProfile(): Promise<{ message: string }> {
+    // TODO: add @GetUser() user: User
     return { message: 'success' };
   }
 

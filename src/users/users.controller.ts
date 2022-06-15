@@ -36,6 +36,7 @@ export class UsersController {
 
   @Get()
   findAll(@Query() filterDto: FindAllFilterDto): Promise<User[]> {
+    // TODO: add @GetUser() user: User
     return this.usersService.findAll(filterDto);
   }
 
