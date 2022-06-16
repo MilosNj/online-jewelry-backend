@@ -14,7 +14,6 @@ import { User } from './entities/user.entity';
 import { FindAllFilterDto } from 'helper/find-all-filter.dto';
 import { JwtPayload } from './jwt-payload.interface';
 import { AuthenticateUserDto } from './dto/authenticate-user.dto';
-import { JwtStrategy } from './jwt.strategy';
 
 @Injectable()
 export class UsersService {
@@ -22,7 +21,6 @@ export class UsersService {
     @InjectRepository(User)
     private repository: Repository<User>,
     private jwtService: JwtService,
-    private jwtStrategy: JwtStrategy,
   ) {}
 
   async signUp(createUserDto: CreateUserDto): Promise<User> {
