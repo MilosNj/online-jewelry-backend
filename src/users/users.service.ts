@@ -43,7 +43,7 @@ export class UsersService {
 
   async signIn(
     authenticateUser: AuthenticateUserDto,
-  ): Promise<{ accessToken: string; email: string }> {
+  ): Promise<{ accessToken: string }> {
     const { email, password } = authenticateUser;
 
     const user = await this.repository.findOne({ email });
@@ -52,20 +52,27 @@ export class UsersService {
       const payload: JwtPayload = { email };
       const accessToken: string = this.jwtService.sign(payload);
 
-      return { accessToken, email: user.email };
+      return { accessToken };
     } else {
       throw new UnauthorizedException('Please check your login credentials');
     }
   }
 
-  async getUserProfile(user: User): Promise<User> {
+  async getUserProfile(
+    user: User,
+  ): Promise<{ id: number; name: string; email: string; isAdmin: boolean }> {
     const found = await this.findOne(user._id);
 
     if (!found) {
       throw new NotFoundException(`User not found`);
     }
 
-    return found;
+    return {
+      id: found._id,
+      name: found.name,
+      email: found.email,
+      isAdmin: found.isAdmin,
+    };
   }
 
   async findAll(filterDto: FindAllFilterDto): Promise<User[]> {

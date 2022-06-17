@@ -31,7 +31,7 @@ export class UsersController {
   @Post('/signin')
   signIn(
     @Body() authenticateUser: AuthenticateUserDto,
-  ): Promise<{ accessToken: string; email: string }> {
+  ): Promise<{ accessToken: string }> {
     return this.usersService.signIn(authenticateUser);
   }
 
@@ -42,7 +42,9 @@ export class UsersController {
 
   @Get('/profile')
   @UseGuards(LocalAuthGuard)
-  getUserProfile(@GetUser() user: User): Promise<User> {
+  getUserProfile(
+    @GetUser() user: User,
+  ): Promise<{ id: number; name: string; email: string; isAdmin: boolean }> {
     return this.usersService.getUserProfile(user);
   }
 
