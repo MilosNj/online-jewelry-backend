@@ -58,9 +58,14 @@ export class UsersService {
     }
   }
 
-  async getUserProfile(): Promise<{ message: string }> {
-    // TODO: add @GetUser() user: User
-    return { message: 'success' };
+  async getUserProfile(user: User): Promise<User> {
+    const found = await this.findOne(user._id);
+
+    if (!found) {
+      throw new NotFoundException(`User not found`);
+    }
+
+    return found;
   }
 
   async findAll(filterDto: FindAllFilterDto): Promise<User[]> {

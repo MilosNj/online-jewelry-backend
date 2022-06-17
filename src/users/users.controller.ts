@@ -17,6 +17,7 @@ import { User } from './entities/user.entity';
 import { FindAllFilterDto } from 'helper/find-all-filter.dto';
 import { AuthenticateUserDto } from './dto/authenticate-user.dto';
 import { LocalAuthGuard } from 'auth/local-auth.guard';
+import { GetUser } from './get-user.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -36,14 +37,13 @@ export class UsersController {
 
   @Get()
   findAll(@Query() filterDto: FindAllFilterDto): Promise<User[]> {
-    // TODO: add @GetUser() user: User
     return this.usersService.findAll(filterDto);
   }
 
   @Get('/profile')
   @UseGuards(LocalAuthGuard)
-  getUserProfile(): Promise<{ message: string }> {
-    return this.usersService.getUserProfile();
+  getUserProfile(@GetUser() user: User): Promise<User> {
+    return this.usersService.getUserProfile(user);
   }
 
   @Get(':id')
