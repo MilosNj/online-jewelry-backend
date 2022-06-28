@@ -41,9 +41,13 @@ export class UsersService {
     return user;
   }
 
-  async signIn(
-    authenticateUser: AuthenticateUserDto,
-  ): Promise<{ accessToken: string }> {
+  async signIn(authenticateUser: AuthenticateUserDto): Promise<{
+    accessToken: string;
+    name: string;
+    email: string;
+    isAdmin: boolean;
+    id: number;
+  }> {
     const { email, password } = authenticateUser;
 
     const user = await this.repository.findOne({ email });
@@ -52,7 +56,13 @@ export class UsersService {
       const payload: JwtPayload = { email };
       const accessToken: string = this.jwtService.sign(payload);
 
-      return { accessToken };
+      return {
+        accessToken,
+        name: user.name,
+        email,
+        isAdmin: user.isAdmin,
+        id: user._id,
+      };
     } else {
       throw new UnauthorizedException('Please check your login credentials');
     }

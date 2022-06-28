@@ -29,9 +29,13 @@ export class UsersController {
   }
 
   @Post('/signin')
-  signIn(
-    @Body() authenticateUser: AuthenticateUserDto,
-  ): Promise<{ accessToken: string }> {
+  signIn(@Body() authenticateUser: AuthenticateUserDto): Promise<{
+    accessToken: string;
+    name: string;
+    email: string;
+    isAdmin: boolean;
+    id: number;
+  }> {
     return this.usersService.signIn(authenticateUser);
   }
 
